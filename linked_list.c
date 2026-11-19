@@ -1,64 +1,42 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node* head = NULL;
-
-void insertAtBeginning() {
-    int val;
-    printf("Enter value to insert: ");
-    scanf("%d", &val);
-
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = val;
-    newNode->next = head;
-    head = newNode;
-    printf("%d inserted into the linked list.\n", val);
-}
-
-void deleteFromBeginning() {
-    if (head == NULL) {
-        printf("\nList is empty! Deletion not possible.\n");
-    } else {
-        struct Node* temp = head;
-        head = head->next;
-        printf("%d deleted from the linked list.\n", temp->data);
-        free(temp);
-    }
-}
-
-void display() {
-    struct Node* temp = head;
-    if (temp == NULL) {
-        printf("\nLinked list is empty!\n");
-    } else {
-        printf("\nLinked list elements: ");
-        while (temp != NULL) {
-            printf("%d -> ", temp->data);
-            temp = temp->next;
-        }
-        printf("NULL\n");
-    }
-}
 
 int main() {
-    int choice;
-    do {
-        printf("\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter choice: ");
-        scanf("%d", &choice);
+    int n, i, key, found = 0;
 
-        switch (choice) {
-            case 1: insertAtBeginning(); break;
-            case 2: deleteFromBeginning(); break;
-            case 3: display(); break;
-            case 4: break;
-            default: printf("Invalid choice!\n");
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+
+    for (i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            printf("Element %d found at position %d (Index %d).\n", key, i + 1, i);
+            found = 1;
+            break;
         }
-    } while (choice != 4);
+    }
+
+    if (!found) {
+        printf("Element %d not found in the array.\n", key);
+    }
+
+    int max = arr[0], min = arr[0];
+    for (i = 1; i < n; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+        if (arr[i] < min)
+            min = arr[i];
+    }
+
+    printf("Maximum element is: %d\n", max);
+    printf("Minimum element is: %d\n", min);
 
     return 0;
 }
